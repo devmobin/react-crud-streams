@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { SignIn, SignOut } from '../actions'
 
 export class GoogleAuth extends Component {
   state = { isSignedIn: null }
@@ -19,8 +21,12 @@ export class GoogleAuth extends Component {
     })
   }
 
-  onAuthChange = () => {
-    this.setState({ isSignedIn: this.auth.isSignedIn.get() })
+  onAuthChange = (isSignedIn) => {
+    if (isSignedIn) {
+      this.props.SignIn()
+    } else {
+      this.props.SignOut()
+    }
   }
 
   onSignInClick = () => {
@@ -58,4 +64,13 @@ export class GoogleAuth extends Component {
   }
 }
 
-export default GoogleAuth
+const mapStateToProps = (state) => {
+  return {}
+}
+
+const mapDispatchToProps = {
+  SignIn,
+  SignOut
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(GoogleAuth)
