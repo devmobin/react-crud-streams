@@ -31,3 +31,9 @@ export const fetchStream = (id) => async (dispatch) => {
 
   dispatch({ type: types.FETCH_STREAM, payload: response.data })
 }
+
+export const editStream = (id, formValues) => async (dispatch) => {
+  const response = await streams.put(`/streams/${id}`, formValues)
+
+  dispatch({ type: types.EDIT_STREAM, payload: response.data })
+}
